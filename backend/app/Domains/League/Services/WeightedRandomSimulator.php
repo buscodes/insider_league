@@ -11,6 +11,7 @@ use App\Domains\League\ValueObjects\MatchScore;
 
 final class WeightedRandomSimulator implements MatchSimulatorInterface
 {
+    // Produces a match result weighted by each team's power and home advantage
     public function simulate(Team $homeTeam, Team $awayTeam): MatchScore
     {
         $homeEffective = $homeTeam->power + LeagueConstants::HOME_ADVANTAGE;
@@ -36,6 +37,7 @@ final class WeightedRandomSimulator implements MatchSimulatorInterface
             : new MatchScore($loserGoals, $winnerGoals);
     }
 
+    // Returns a random float between 0 and 1 for probability checks
     private function roll(): float
     {
         return mt_rand(0, 10_000) / 10_000;

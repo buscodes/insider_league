@@ -28,6 +28,7 @@ export const useLeagueStore = defineStore('league', () => {
   const isSimulationStarted = ref<boolean>(Value.FALSE)
   const scoreErrors = ref<Record<number, Record<string, string[]>>>({})
 
+  // Groups all fixtures by week number for tab-based display
   const fixturesByWeek = computed<Record<number, Match[]>>(() => {
     const grouped: Record<number, Match[]> = {}
     for (let w = Value.ONE; w <= LeagueConstants.TOTAL_WEEKS; w++) {
@@ -36,35 +37,42 @@ export const useLeagueStore = defineStore('league', () => {
     return grouped
   })
 
+  // True from week 4 onward — drives prediction panel visibility
   const hasPredictions = computed<boolean>(
     () => currentWeek.value >= LeagueConstants.MIN_PREDICTION_WEEK,
   )
 
+  // True only when every fixture in the season has been played
   const allPlayed = computed<boolean>(
     () =>
       fixtures.value.length > Value.ZERO && fixtures.value.every((m) => m.is_played),
   )
 
+  // Week of the first unplayed fixture; falls back to final week when all are played
   const activeWeek = computed<number>(() => {
     if (fixtures.value.length === Value.ZERO) return Value.ONE
     const unplayed = fixtures.value.find((m) => !m.is_played)
     return unplayed?.week ?? LeagueConstants.TOTAL_WEEKS
   })
 
+  // Derives completed-week count from played fixture count
   function computeCurrentWeek(): void {
     const played = fixtures.value.filter((m) => m.is_played).length
     currentWeek.value = Math.floor(played / LeagueConstants.MATCHES_PER_WEEK)
   }
 
+  // Patches fixture list in-place with the server's updated match objects
   function mergeFixtures(updated: Match[]): void {
     const map = new Map(updated.map((m) => [m.id, m]))
     fixtures.value = fixtures.value.map((m) => map.get(m.id) ?? m)
   }
 
+  // Fetches and overwrites the current league table
   async function refreshStandings(): Promise<void> {
     standings.value = await getLeagueTable()
   }
 
+  // Fetches championship predictions; skips write when API returns null (before week 4)
   async function refreshPredictions(): Promise<void> {
     const result = await getPredictions()
     if (result !== null) {
@@ -72,6 +80,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Refreshes standings, week counter, and predictions after any simulation mutation
   async function refreshLeagueData(): Promise<void> {
     await refreshStandings()
     computeCurrentWeek()
@@ -80,6 +89,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Loads teams and fixtures on mount; restores simulation phase if matches were already played
   async function initialize(): Promise<void> {
     isLoading.value = Value.TRUE
     try {
@@ -103,6 +113,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Calls the API to generate the round-robin schedule and advances to fixture-review phase
   async function generateFixtures(): Promise<void> {
     isLoading.value = Value.TRUE
     try {
@@ -113,10 +124,12 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Advances the UI from fixture-review to live simulation phase
   function startSimulation(): void {
     isSimulationStarted.value = Value.TRUE
   }
 
+  // Simulates the next unplayed week and refreshes league data
   async function playNextWeek(): Promise<void> {
     isLoading.value = Value.TRUE
     try {
@@ -128,6 +141,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Simulates all remaining weeks at once and refreshes league data
   async function playAll(): Promise<void> {
     isLoading.value = Value.TRUE
     try {
@@ -139,6 +153,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Resets all state to the pre-league phase
   async function resetLeague(): Promise<void> {
     isLoading.value = Value.TRUE
     try {
@@ -155,6 +170,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Sends a score edit to the API, updates the fixture in state, and refreshes league data
   async function updateMatchScore(
     matchId: number,
     homeScore: number,
@@ -176,6 +192,7 @@ export const useLeagueStore = defineStore('league', () => {
     }
   }
 
+  // Removes validation errors for the given match
   function clearScoreErrors(matchId: number): void {
     const next = { ...scoreErrors.value }
     delete next[matchId]

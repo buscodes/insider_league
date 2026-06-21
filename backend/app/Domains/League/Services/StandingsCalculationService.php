@@ -15,6 +15,7 @@ final class StandingsCalculationService
      * @param  FootballMatch[] $matches
      * @return StandingEntry[]
      */
+    // Builds the league table from played matches and sorts by points, goal difference, goals scored
     public function calculate(array $teams, array $matches): array
     {
         $table = [];

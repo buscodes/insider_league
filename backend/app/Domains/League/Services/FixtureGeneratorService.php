@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 final class FixtureGeneratorService
 {
-    /** Home index, Away index pairs per week (0-based team indices). */
+    // Home/away index pairs per week for a 4-team round-robin (0-based team indices)
     private const array SCHEDULE = [
         1 => [[0, 1], [2, 3]],
         2 => [[0, 2], [1, 3]],
@@ -22,9 +22,10 @@ final class FixtureGeneratorService
     ];
 
     /**
-     * @param  Team[]         $teams  Exactly 4 teams.
-     * @return FixtureEntry[]         12 fixture entries, weeks 1–6.
+     * @param  Team[]         $teams
+     * @return FixtureEntry[]
      */
+    // Generates the 12-match round-robin schedule across 6 weeks
     public function generate(array $teams): array
     {
         if (count($teams) !== LeagueConstants::TOTAL_TEAMS) {

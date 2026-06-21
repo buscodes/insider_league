@@ -21,8 +21,9 @@ final class ChampionshipPredictionService
     /**
      * @param  Team[]          $teams
      * @param  FootballMatch[] $matches
-     * @return array<string, float>|null  Team name → percentage, or null if week < 4.
+     * @return array<string, float>|null
      */
+    // Returns championship percentages per team from week 4 onward; null before that
     public function predict(array $teams, array $matches, int $currentWeek): ?array
     {
         if ($currentWeek < LeagueConstants::MIN_PREDICTION_WEEK) {
@@ -39,7 +40,11 @@ final class ChampionshipPredictionService
         return $this->runMonteCarlo($standings, $remaining);
     }
 
-    /** @param StandingEntry[] $standings */
+    /**
+     * @param StandingEntry[] $standings
+     * @param FootballMatch[] $remaining
+     */
+    // True when the leader's gap exceeds the maximum points the second-place team can still earn
     private function leaderIsGuaranteed(array $standings, array $remaining): bool
     {
         if (count($standings) < 2) {
@@ -60,6 +65,7 @@ final class ChampionshipPredictionService
     }
 
     /** @param StandingEntry[] $standings */
+    // Returns 100% for the leader and 0% for all others when the title is mathematically decided
     private function buildCertainResult(array $standings): array
     {
         $result = [];
@@ -74,6 +80,7 @@ final class ChampionshipPredictionService
      * @param  FootballMatch[] $remaining
      * @return array<string, float>
      */
+    // Simulates 1000 seasons from current state and returns win-percentage per team
     private function runMonteCarlo(array $standings, array $remaining): array
     {
         $wins = [];

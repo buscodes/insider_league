@@ -30,12 +30,14 @@ class FootballMatch
         $this->isPlayed = $isPlayed;
     }
 
+    // Records the match result and marks the match as played
     public function play(MatchScore $score): void
     {
         $this->score = $score;
         $this->isPlayed = Value::TRUE;
     }
 
+    // Overwrites the score of an already-played match; throws if the match has not been played
     public function updateScore(MatchScore $score): void
     {
         if (!$this->isPlayed) {
@@ -45,11 +47,13 @@ class FootballMatch
         $this->score = $score;
     }
 
+    // Returns whether the match has been simulated or manually scored
     public function isPlayed(): bool
     {
         return $this->isPlayed;
     }
 
+    // Returns the current score, or null if the match has not been played
     public function getScore(): ?MatchScore
     {
         return $this->score;
