@@ -39,7 +39,7 @@ onMounted(async () => {
           />
           <AppButton
             v-if="!store.allPlayed"
-            label="Play All"
+            label="Play All Weeks"
             variant="secondary"
             :loading="store.isLoading"
             :disabled="store.isLoading"
