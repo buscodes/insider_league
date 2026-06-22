@@ -13,7 +13,7 @@ A full-stack football league simulation featuring a 4-team round-robin fixture, 
 | State Management | Pinia |
 | HTTP Client | Axios |
 | Styling | Tailwind CSS 3 |
-| Testing | PHPUnit (35+ unit & feature tests) |
+| Testing | PHPUnit (63 unit & feature tests) |
 
 ---
 
@@ -124,6 +124,30 @@ core (Models, Constants — BaseResponse, ApiPaths, Value, LeagueConstants)
 | `POST` | `/api/v1/simulation/play-all` | Simulate all remaining weeks |
 | `PATCH` | `/api/v1/matches/{id}` | Manually update a match score |
 | `POST` | `/api/v1/simulation/reset` | Reset the entire season |
+
+---
+
+## Testing (Backend)
+
+### Run all tests
+
+```bash
+cd backend
+./vendor/bin/phpunit
+```
+
+### Test suite breakdown
+
+| Suite | File | Tests |
+|---|---|---|
+| Unit | `MatchScoreTest` | 11 |
+| Unit | `FootballMatchTest` | 5 |
+| Unit | `FixtureGeneratorServiceTest` | 8 |
+| Unit | `StandingsCalculationServiceTest` | 9 |
+| Unit | `WeightedRandomSimulatorTest` | 5 |
+| Unit | `ChampionshipPredictionServiceTest` | 7 |
+| Feature | `ApiTest` | 18 |
+| **Total** | | **63** |
 
 ---
 
