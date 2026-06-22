@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from '@/presentation/router'
-import '@/infrastructure/interceptors/CredentialsInterceptor'
 import '@/presentation/assets/main.css'
 
 const app = createApp(App)

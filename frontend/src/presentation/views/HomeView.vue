@@ -92,7 +92,7 @@ onMounted(async () => {
               <span class="text-xs text-gray-500 w-4 text-center">{{ index + 1 }}</span>
               <span class="text-sm font-medium text-white">{{ team.name }}</span>
             </div>
-            <span class="text-xs text-gray-500">
+            <span class="text-xs text-gray-500 opacity-20">
               Power: <span class="text-green-400 font-mono">{{ team.power }}</span>
             </span>
           </li>

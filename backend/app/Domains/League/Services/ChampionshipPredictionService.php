@@ -51,8 +51,8 @@ final class ChampionshipPredictionService
             return true;
         }
 
-        $leader = $standings[0];
-        $second = $standings[1];
+        $leader = $standings[0]; // first team -leader-
+        $second = $standings[1]; // second team
 
         $secondRemaining = count(array_filter(
             $remaining,

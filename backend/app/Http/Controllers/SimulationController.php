@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Domains\League\AggregateRoots\FootballMatch;
 use App\Domains\League\Contracts\MatchRepositoryInterface;
 use App\Domains\League\Contracts\MatchSimulatorInterface;
+use App\Core\Constants\HttpStatus;
 use App\Core\Constants\Value;
 use App\Http\Resources\BaseApiResource;
 use App\Http\Resources\MatchResource;
@@ -26,7 +27,7 @@ class SimulationController extends Controller
         if ($week === Value::ZERO) {
             return BaseApiResource::error(
                 message: 'All matches have already been played.',
-                status:  422,
+                status:  HttpStatus::UNPROCESSABLE,
             );
         }
 
@@ -52,7 +53,7 @@ class SimulationController extends Controller
         if (count($unplayed) === Value::ZERO) {
             return BaseApiResource::error(
                 message: 'All matches have already been played.',
-                status:  422,
+                status:  HttpStatus::UNPROCESSABLE,
             );
         }
 

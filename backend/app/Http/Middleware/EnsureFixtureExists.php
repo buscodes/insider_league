@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Core\Constants\HttpStatus;
 use App\Http\Resources\BaseApiResource;
 use App\Infrastructure\Models\FootballMatchModel;
 use Closure;
@@ -17,7 +18,7 @@ class EnsureFixtureExists
         if (!FootballMatchModel::exists()) {
             return BaseApiResource::error(
                 message: 'No fixture has been generated yet. Please call POST /api/v1/fixtures/generate first.',
-                status:  422,
+                status:  HttpStatus::UNPROCESSABLE,
             );
         }
 

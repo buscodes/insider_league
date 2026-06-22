@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Domains\League\Contracts\MatchRepositoryInterface;
 use App\Domains\League\ValueObjects\MatchScore;
 use App\Http\Requests\UpdateMatchRequest;
+use App\Core\Constants\HttpStatus;
 use App\Http\Resources\BaseApiResource;
 use App\Http\Resources\MatchResource;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +30,7 @@ class MatchController extends Controller
         }
 
         if ($match === null) {
-            return BaseApiResource::error(message: 'Match not found.', status: 404);
+            return BaseApiResource::error(message: 'Match not found.', status: HttpStatus::NOT_FOUND);
         }
 
         $match->updateScore(new MatchScore(

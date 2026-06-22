@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Core\Exceptions\DomainException;
+use App\Core\Constants\HttpStatus;
 use App\Http\Resources\BaseApiResource;
 use Closure;
 use Illuminate\Http\Request;
@@ -21,13 +22,13 @@ class FormatValidationErrors
             return BaseApiResource::error(
                 message: 'The given data was invalid.',
                 data:    ['errors' => $e->errors()],
-                status:  422,
+                status:  HttpStatus::UNPROCESSABLE,
             );
         } catch (DomainException $e) {
             return BaseApiResource::error(
                 message: $e->getMessage(),
                 data:    null,
-                status:  400,
+                status:  HttpStatus::BAD_REQUEST,
             );
         }
     }

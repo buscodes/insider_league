@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Domains\League\Contracts\MatchRepositoryInterface;
 use App\Domains\League\Contracts\TeamRepositoryInterface;
 use App\Domains\League\Services\FixtureGeneratorService;
+use App\Core\Constants\HttpStatus;
 use App\Http\Resources\BaseApiResource;
 use App\Http\Resources\MatchResource;
 use App\Infrastructure\Models\FootballMatchModel;
@@ -35,7 +36,7 @@ class FixtureController extends Controller
         if (FootballMatchModel::exists()) {
             return BaseApiResource::error(
                 message: 'Fixture already exists. Reset the league before generating a new one.',
-                status:  422,
+                status:  HttpStatus::UNPROCESSABLE
             );
         }
 
@@ -48,7 +49,7 @@ class FixtureController extends Controller
         return BaseApiResource::success(
             data:    MatchResource::collection($matches),
             message: 'Fixtures generated successfully.',
-            status:  201,
+            status:  HttpStatus::CREATED,
         );
     }
 }

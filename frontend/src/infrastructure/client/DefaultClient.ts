@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { addCredentialsInterceptor } from '@/infrastructure/interceptors/CredentialsInterceptor'
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
@@ -7,5 +8,7 @@ const apiClient = axios.create({
     Accept: 'application/json',
   },
 })
+
+addCredentialsInterceptor(apiClient)
 
 export default apiClient

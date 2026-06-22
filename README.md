@@ -24,7 +24,6 @@ insider_champions_league/
 ├── backend/          # Laravel API — DDD architecture
 ├── frontend/         # Vue 3 SPA — Atomic Design
 ├── docs/             # Phase-by-phase summaries (EN + TR)
-├── ARCHITECTURE.md   # Full system architecture reference
 └── README.md         # ← you are here
 ```
 
@@ -100,6 +99,8 @@ Core (Base classes, Constants, Exceptions)
 presentation (Views / Components / Stores)
     ↓
 application (Services — TeamService, FixtureService, …)
+    ↓
+infrastructure (ApiService, DefaultClient, CredentialsInterceptor)
     ↓
 core (Models, Constants — BaseResponse, ApiPaths, Value, LeagueConstants)
 ```
