@@ -70,9 +70,6 @@ onMounted(async () => {
         <h1 class="text-3xl font-bold text-white tracking-tight">
           Insider Champions League
         </h1>
-        <p class="text-gray-400 text-sm mt-2">
-          4-team round-robin simulation with Monte Carlo predictions
-        </p>
       </div>
 
       <!-- Teams table -->
