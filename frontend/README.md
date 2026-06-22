@@ -41,6 +41,26 @@ npm run build
 
 ---
 
+## Git Hooks (Husky)
+
+A `pre-commit` hook runs TypeScript type-checking before every commit. It blocks the commit if any type error is detected.
+
+```
+git commit  →  vue-tsc --noEmit  →  passes? commit proceeds : commit aborted
+```
+
+Husky is initialized automatically on `npm install` via the `prepare` script. No manual setup is needed after cloning.
+
+**Hook location:** `frontend/.husky/pre-commit`
+
+To bypass the hook in exceptional cases (not recommended):
+
+```bash
+git commit --no-verify -m "message"
+```
+
+---
+
 ## Project Structure
 
 ```
