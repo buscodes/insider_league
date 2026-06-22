@@ -149,6 +149,29 @@ cd backend
 | Feature | `ApiTest` | 18 |
 | **Total** | | **63** |
 
+### Code coverage
+
+| Metric | Coverage |
+|---|---|
+| Lines | 386 / 437 — **88.3%** |
+| Methods | 60 / 79 — **75.9%** |
+
+> Domain layer (services, value objects, aggregate roots) is at **100%**. Remaining gap is in Eloquent models, constants, and the `FormatValidationErrors` middleware's validation exception branch.
+
+To regenerate the report (requires Xdebug):
+
+```bash
+# Terminal text report
+XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text
+
+# HTML report (opens in browser)
+XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage/
+open coverage/index.html
+
+# Clover XML (for CI)
+XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover coverage.xml
+```
+
 ---
 
 ## Key Domain Rules
