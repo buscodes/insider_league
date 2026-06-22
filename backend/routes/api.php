@@ -19,7 +19,7 @@ Route::prefix(AppVersion::API_PREFIX)->middleware('throttle:60,1')->group(functi
     Route::get('league-table', [LeagueController::class, 'table']);
     Route::get('predictions', [LeagueController::class, 'predictions']);
 
-    Route::middleware('throttle:10,1')->group(function (): void {
+    Route::middleware('throttle:30,1')->group(function (): void {
         Route::post('fixtures/generate', [FixtureController::class, 'generate']);
 
         Route::middleware(EnsureFixtureExists::class)->group(function (): void {
