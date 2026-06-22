@@ -23,7 +23,6 @@ A full-stack football league simulation featuring a 4-team round-robin fixture, 
 insider_champions_league/
 ├── backend/          # Laravel API — DDD architecture
 ├── frontend/         # Vue 3 SPA — Atomic Design
-├── docs/             # Phase-by-phase summaries (EN + TR)
 └── README.md         # ← you are here
 ```
 
