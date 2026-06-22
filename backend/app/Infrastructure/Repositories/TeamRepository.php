@@ -8,7 +8,7 @@ use App\Domains\League\Contracts\TeamRepositoryInterface;
 use App\Domains\League\Entities\Team;
 use App\Infrastructure\Models\TeamModel;
 
-final class EloquentTeamRepository implements TeamRepositoryInterface
+final class TeamRepository implements TeamRepositoryInterface
 {
     public function all(): array
     {

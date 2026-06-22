@@ -11,7 +11,7 @@ use App\Domains\League\ValueObjects\FixtureEntry;
 use App\Domains\League\ValueObjects\MatchScore;
 use App\Infrastructure\Models\FootballMatchModel;
 
-final class EloquentMatchRepository implements MatchRepositoryInterface
+final class MatchRepository implements MatchRepositoryInterface
 {
     public function all(): array
     {
